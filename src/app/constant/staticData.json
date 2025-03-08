@@ -1,26 +1,26 @@
 {
-  "users": [
-    {
+  "users": [{
       "userId": 1,
       "name": "John Doe",
       "email": "john@example.com",
-      "password": "hashed_password",
+      "password": "123456",
       "role": "admin",
+      "roleId": 1,
       "phone": "+1234567890",
       "createdAt": "2025-03-08T10:00:00Z"
     },
     {
       "userId": 2,
       "name": "Alice Smith",
-      "email": "alice@example.com",
+      "email": "admin@example.com",
       "password": "hashed_password",
       "role": "customer",
+      "roleId": 2,
       "phone": "+9876543210",
       "createdAt": "2025-03-08T11:00:00Z"
     }
   ],
-  "turfs": [
-    {
+  "turfs": [{
       "turfId": 1,
       "name": "Green Field Arena",
       "location": "New York",
@@ -39,8 +39,7 @@
       "createdAt": "2025-03-08T10:45:00Z"
     }
   ],
-  "locations": [
-    {
+  "locations": [{
       "locationId": 1,
       "name": "New York",
       "address": "123 Main Street, NY, USA",
@@ -53,8 +52,7 @@
       "createdAt": "2025-03-08T10:00:00Z"
     }
   ],
-  "bookings": [
-    {
+  "bookings": [{
       "bookingId": 1,
       "userId": 2,
       "turfId": 1,
@@ -77,8 +75,7 @@
       "createdAt": "2025-03-08T01:30:00Z"
     }
   ],
-  "payments": [
-    {
+  "payments": [{
       "paymentId": 1,
       "bookingId": 1,
       "userId": 2,
@@ -99,8 +96,7 @@
       "createdAt": "2025-03-08T01:40:00Z"
     }
   ],
-  "feedbacks": [
-    {
+  "feedbacks": [{
       "feedbackId": 1,
       "userId": 2,
       "turfId": 1,
@@ -115,18 +111,6 @@
       "rating": 3.8,
       "comment": "Good, but could be cleaner.",
       "createdAt": "2025-03-08T03:15:00Z"
-    }
-  ],
-  "roles": [
-    {
-      "roleId": 1,
-      "roleName": "admin",
-      "permissions": ["manage_users", "manage_turf", "manage_bookings", "view_reports"]
-    },
-    {
-      "roleId": 2,
-      "roleName": "customer",
-      "permissions": ["book_turf", "make_payment", "give_feedback"]
     }
   ]
 }
