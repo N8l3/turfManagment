@@ -1,0 +1,85 @@
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="auth-card p-4">
+        <!-- Nav Tabs -->
+        <ul class="nav nav-tabs" id="authTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="tab" href="#loginTab" (click)="resetForms()">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#signupTab" (click)="resetForms()">Signup</a>
+            </li>
+            <li class="nav-item" style=" display: none;">
+                <a class="nav-link" data-bs-toggle="tab" href="#resetTab" hidden id="resetPasswordTab">Reset
+                    Password</a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content mt-3">
+            <!-- Login Form -->
+            <div class="tab-pane fade show active" id="loginTab">
+                <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" class="form-control" formControlName="email" required />
+                        <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched"
+                            class="text-danger">
+                            <small *ngIf="loginForm.controls['email'].errors?.['required']">Email is required.</small>
+                            <small *ngIf="loginForm.controls['email'].errors?.['email']">Invalid email format.</small>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" class="form-control" formControlName="password" required />
+                        <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+                            class="text-danger">
+                            <small>Password is required.</small>
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-success w-100" [disabled]="loginForm.invalid">Login</button>
+                </form>
+                <div class="text-center mt-2">
+                    <a href="#" (click)="openResetPassword($event)">Forgot Password?</a>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div class="tab-pane fade" id="signupTab">
+                <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+                    <div class="mb-3">
+                        <label>Name</label>
+                        <input type="text" class="form-control" formControlName="name" required />
+                    </div>
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" class="form-control" formControlName="email" required />
+                    </div>
+                    <div class="mb-3">
+                        <label>Password</label>
+                        <input type="password" class="form-control" formControlName="password" required />
+                    </div>
+                    <button class="btn btn-success w-100" [disabled]="signupForm.invalid">Signup</button>
+                </form>
+            </div>
+
+            <!-- Reset Password Form -->
+            <div class="tab-pane fade" id="resetTab">
+                <form [formGroup]="resetPasswordForm" (ngSubmit)="onResetPassword()">
+                    <div class="mb-3">
+                        <label>Enter your registered email</label>
+                        <input type="email" class="form-control" formControlName="email" required />
+                        <div *ngIf="resetPasswordForm.controls['email'].invalid && resetPasswordForm.controls['email'].touched"
+                            class="text-danger">
+                            <small>Email is required.</small>
+                        </div>
+                    </div>
+                    <button class="btn btn-warning w-100" [disabled]="resetPasswordForm.invalid">Send Reset
+                        Link</button>
+                </form>
+                <div class="text-center mt-2">
+                    <a href="#" (click)="backToLogin($event)">Back to Login</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

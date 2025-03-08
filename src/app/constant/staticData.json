@@ -1,0 +1,132 @@
+{
+  "users": [
+    {
+      "userId": 1,
+      "name": "John Doe",
+      "email": "john@example.com",
+      "password": "hashed_password",
+      "role": "admin",
+      "phone": "+1234567890",
+      "createdAt": "2025-03-08T10:00:00Z"
+    },
+    {
+      "userId": 2,
+      "name": "Alice Smith",
+      "email": "alice@example.com",
+      "password": "hashed_password",
+      "role": "customer",
+      "phone": "+9876543210",
+      "createdAt": "2025-03-08T11:00:00Z"
+    }
+  ],
+  "turfs": [
+    {
+      "turfId": 1,
+      "name": "Green Field Arena",
+      "location": "New York",
+      "pricePerHour": 50,
+      "weekendPricePerHour": 70,
+      "available": true,
+      "createdAt": "2025-03-08T09:30:00Z"
+    },
+    {
+      "turfId": 2,
+      "name": "Sports Hub",
+      "location": "Los Angeles",
+      "pricePerHour": 60,
+      "weekendPricePerHour": 80,
+      "available": true,
+      "createdAt": "2025-03-08T10:45:00Z"
+    }
+  ],
+  "locations": [
+    {
+      "locationId": 1,
+      "name": "New York",
+      "address": "123 Main Street, NY, USA",
+      "createdAt": "2025-03-08T09:00:00Z"
+    },
+    {
+      "locationId": 2,
+      "name": "Los Angeles",
+      "address": "456 Sunset Blvd, LA, USA",
+      "createdAt": "2025-03-08T10:00:00Z"
+    }
+  ],
+  "bookings": [
+    {
+      "bookingId": 1,
+      "userId": 2,
+      "turfId": 1,
+      "date": "2025-03-10",
+      "startTime": "10:00 AM",
+      "endTime": "12:00 PM",
+      "totalPrice": 100,
+      "status": "confirmed",
+      "createdAt": "2025-03-08T12:00:00Z"
+    },
+    {
+      "bookingId": 2,
+      "userId": 2,
+      "turfId": 2,
+      "date": "2025-03-12",
+      "startTime": "04:00 PM",
+      "endTime": "06:00 PM",
+      "totalPrice": 160,
+      "status": "pending",
+      "createdAt": "2025-03-08T01:30:00Z"
+    }
+  ],
+  "payments": [
+    {
+      "paymentId": 1,
+      "bookingId": 1,
+      "userId": 2,
+      "amount": 100,
+      "paymentMethod": "Credit Card",
+      "transactionId": "TXN123456789",
+      "status": "completed",
+      "createdAt": "2025-03-08T12:10:00Z"
+    },
+    {
+      "paymentId": 2,
+      "bookingId": 2,
+      "userId": 2,
+      "amount": 160,
+      "paymentMethod": "PayPal",
+      "transactionId": "TXN987654321",
+      "status": "pending",
+      "createdAt": "2025-03-08T01:40:00Z"
+    }
+  ],
+  "feedbacks": [
+    {
+      "feedbackId": 1,
+      "userId": 2,
+      "turfId": 1,
+      "rating": 4.5,
+      "comment": "Great experience! The turf was well maintained.",
+      "createdAt": "2025-03-08T02:30:00Z"
+    },
+    {
+      "feedbackId": 2,
+      "userId": 2,
+      "turfId": 2,
+      "rating": 3.8,
+      "comment": "Good, but could be cleaner.",
+      "createdAt": "2025-03-08T03:15:00Z"
+    }
+  ],
+  "roles": [
+    {
+      "roleId": 1,
+      "roleName": "admin",
+      "permissions": ["manage_users", "manage_turf", "manage_bookings", "view_reports"]
+    },
+    {
+      "roleId": 2,
+      "roleName": "customer",
+      "permissions": ["book_turf", "make_payment", "give_feedback"]
+    }
+  ]
+}

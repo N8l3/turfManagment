@@ -1,0 +1,58 @@
+.auth-card {
+    width: 400px;
+    background: rgba(1, 1, 1, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    background: rgba(0, 0, 0, 0.1);
+    color: white;
+    font-weight: 500;
+}
+
+.nav-tabs {
+    border-bottom: none;
+    display: flex;
+    width: 100%;
+}
+
+.nav-item {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-link {
+    color: #aaa;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+label {
+    color: white;
+}
+
+/* ✅ Disabled button styles */
+button:disabled {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: #ccc !important;
+    cursor: not-allowed !important;
+    border: none !important;
+}
+
+@media (max-width: 500px) {
+    .auth-card {
+        width: 100%;
+        padding: 20px;
+    }
+}
