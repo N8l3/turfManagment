@@ -3,6 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from './mat-module/mat-module.module';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -10,6 +11,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     importProvidersFrom(FormsModule),          // ✅ For Template-Driven Forms (ngModel)
     importProvidersFrom(ReactiveFormsModule),  // ✅ For Reactive Forms (formGroup)
-
+    importProvidersFrom(MaterialModule),       // ✅ For Angular Material Components
     ]
 };

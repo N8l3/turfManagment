@@ -79,6 +79,7 @@ export class LoginComponent implements AfterViewInit {
         pass: this.loginForm.controls['password'].value,
       };
       localStorage.setItem('user', user.email);
+      sessionStorage.setItem('userRoleID','1');
       this._router.navigate(['/dashboard']);
     }
   }

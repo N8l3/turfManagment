@@ -1,116 +1,120 @@
-<div class="container d-flex justify-content-center align-items-center min-vh-100">
-  <div class="auth-card p-4">
-    <!-- Nav Tabs -->
-    <ul class="nav nav-tabs" id="authTabs">
-      <li class="nav-item">
-        <a class="nav-link active" data-bs-toggle="tab" href="#loginTab" (click)="resetForms()">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="tab" href="#signupTab" (click)="resetForms()">Signup</a>
-      </li>
-      <li class="nav-item" style="display: none">
-        <a class="nav-link" data-bs-toggle="tab" href="#resetTab" hidden id="resetPasswordTab">ResetPassword</a>
-      </li>
-    </ul>
-    <!-- Tab Content -->
-    <div class="tab-content mt-3">
-      <!-- Login Form -->
-      <div class="tab-pane fade show active" id="loginTab">
-        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-          <div class="mb-3">
-            <label>Email</label>
-            <input type="email" class="form-control" formControlName="email" required autocomplete="off" />
-            <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="text-danger">
-              <small *ngIf="loginForm.controls['email'].errors?.['required']">Email is required.</small>
-              <small *ngIf="loginForm.controls['email'].errors?.['email']">Invalid email format.</small>
+<div class="holdLogin">
+
+  <div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="auth-card p-4">
+      <!-- Nav Tabs -->
+      <ul class="nav nav-tabs" id="authTabs">
+        <li class="nav-item">
+          <a class="nav-link active" data-bs-toggle="tab" href="#loginTab" (click)="resetForms()">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-bs-toggle="tab" href="#signupTab" (click)="resetForms()">Signup</a>
+        </li>
+        <li class="nav-item" style="display: none">
+          <a class="nav-link" data-bs-toggle="tab" href="#resetTab" hidden id="resetPasswordTab">ResetPassword</a>
+        </li>
+      </ul>
+      <!-- Tab Content -->
+      <div class="tab-content mt-3">
+        <!-- Login Form -->
+        <div class="tab-pane fade show active" id="loginTab">
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="mb-3">
+              <label>Email</label>
+              <input type="email" class="form-control" formControlName="email" required autocomplete="off" />
+              <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="text-danger">
+                <small *ngIf="loginForm.controls['email'].errors?.['required']">Email is required.</small>
+                <small *ngIf="loginForm.controls['email'].errors?.['email']">Invalid email format.</small>
+              </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <label>Password</label>
-            <input type="password" class="form-control" formControlName="password" required autocomplete="off" />
-            <div *ngIf=" loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
-              class="text-danger">
-              <small>Password is required.</small>
+            <div class="mb-3">
+              <label>Password</label>
+              <input type="password" class="form-control" formControlName="password" required autocomplete="off" />
+              <div *ngIf=" loginForm.controls['password'].invalid && loginForm.controls['password'].touched"
+                class="text-danger">
+                <small>Password is required.</small>
+              </div>
             </div>
+            <button class="btn btn-outline-success w-100" [disabled]="loginForm.invalid">
+              Login
+            </button>
+          </form>
+          <div class="text-center mt-2">
+            <a href="#" (click)="openResetPassword($event)">Forgot Password?</a>
           </div>
-          <button class="btn btn-outline-success w-100" [disabled]="loginForm.invalid">
-            Login
-          </button>
-        </form>
-        <div class="text-center mt-2">
-          <a href="#" (click)="openResetPassword($event)">Forgot Password?</a>
         </div>
-      </div>
-      <!-- Signup Form -->
-      <div class="tab-pane fade" id="signupTab">
-        <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
-          <div class="mb-3">
-            <label>Name</label>
-            <input type="text" class="form-control" formControlName="name" required autocomplete="off" />
-            <div *ngIf=" signupForm.controls['name'].invalid && signupForm.controls['name'].touched "
-              class="text-danger">
-              <small *ngIf="signupForm.controls['name'].errors?.['required']">Name is required.</small>
-              <small *ngIf="signupForm.controls['name'].errors?.['pattern']">Only letters and spaces are
-                allowed.</small>
+        <!-- Signup Form -->
+        <div class="tab-pane fade" id="signupTab">
+          <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+            <div class="mb-3">
+              <label>Name</label>
+              <input type="text" class="form-control" formControlName="name" required autocomplete="off" />
+              <div *ngIf=" signupForm.controls['name'].invalid && signupForm.controls['name'].touched "
+                class="text-danger">
+                <small *ngIf="signupForm.controls['name'].errors?.['required']">Name is required.</small>
+                <small *ngIf="signupForm.controls['name'].errors?.['pattern']">Only letters and spaces are
+                  allowed.</small>
+              </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <label>Email</label>
-            <input type="email" class="form-control" formControlName="email" required autocomplete="off" />
-            <div *ngIf=" signupForm.controls['email'].invalid && signupForm.controls['email'].touched"
-              class="text-danger">
-              <small *ngIf="signupForm.controls['email'].errors?.['required']">Email is required.</small>
-              <small *ngIf="signupForm.controls['email'].errors?.['email']">Invalid email format.</small>
+            <div class="mb-3">
+              <label>Email</label>
+              <input type="email" class="form-control" formControlName="email" required autocomplete="off" />
+              <div *ngIf=" signupForm.controls['email'].invalid && signupForm.controls['email'].touched"
+                class="text-danger">
+                <small *ngIf="signupForm.controls['email'].errors?.['required']">Email is required.</small>
+                <small *ngIf="signupForm.controls['email'].errors?.['email']">Invalid email format.</small>
+              </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <label>Password</label>
-            <input type="password" class="form-control" formControlName="password" autocomplete="off" required />
-            <div *ngIf=" signupForm.controls['password'].invalid && signupForm.controls['password'].touched"
-              class="text-danger">
-              <small *ngIf="signupForm.controls['password'].errors?.['required']">Password is
-                required.</small>
-              <small *ngIf="signupForm.controls['password'].errors?.['minlength']">Must be at least 6
-                characters.</small>
-              <small *ngIf="signupForm.controls['password'].errors?.['pattern']">Must contain at least one
-                uppercase letter and one number.</small>
+            <div class="mb-3">
+              <label>Password</label>
+              <input type="password" class="form-control" formControlName="password" autocomplete="off" required />
+              <div *ngIf=" signupForm.controls['password'].invalid && signupForm.controls['password'].touched"
+                class="text-danger">
+                <small *ngIf="signupForm.controls['password'].errors?.['required']">Password is
+                  required.</small>
+                <small *ngIf="signupForm.controls['password'].errors?.['minlength']">Must be at least 6
+                  characters.</small>
+                <small *ngIf="signupForm.controls['password'].errors?.['pattern']">Must contain at least one
+                  uppercase letter and one number.</small>
+              </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <label>Mobile</label>
-            <input type="tel" class="form-control" formControlName="mobile" autocomplete="off" required />
-            <div *ngIf="signupForm.controls['mobile'].invalid && signupForm.controls['mobile'].touched"
-              class="text-danger">
-              <small *ngIf="signupForm.controls['mobile'].errors?.['required']">Mobile number is
-                required.</small>
-              <small *ngIf="signupForm.controls['mobile'].errors?.['pattern']">Enter a valid 10-digit
-                number (Indian format).</small>
+            <div class="mb-3">
+              <label>Mobile</label>
+              <input type="tel" class="form-control" formControlName="mobile" autocomplete="off" required />
+              <div *ngIf="signupForm.controls['mobile'].invalid && signupForm.controls['mobile'].touched"
+                class="text-danger">
+                <small *ngIf="signupForm.controls['mobile'].errors?.['required']">Mobile number is
+                  required.</small>
+                <small *ngIf="signupForm.controls['mobile'].errors?.['pattern']">Enter a valid 10-digit
+                  number (Indian format).</small>
+              </div>
             </div>
-          </div>
-          <button class="btn btn-success w-100" [disabled]="signupForm.invalid">
-            Signup
-          </button>
-        </form>
-      </div>
-      <!-- Reset Password Form -->
-      <div class="tab-pane fade" id="resetTab">
-        <form [formGroup]="resetPasswordForm" (ngSubmit)="onResetPassword()">
-          <div class="mb-3">
-            <label>Enter your registered email</label>
-            <input type="email" class="form-control" formControlName="email" autocomplete="off" required />
-            <div *ngIf="resetPasswordForm.controls['email'].invalid && resetPasswordForm.controls['email'].touched"
-              class="text-danger">
-              <small>Email is required.</small>
+            <button class="btn btn-success w-100" [disabled]="signupForm.invalid">
+              Signup
+            </button>
+          </form>
+        </div>
+        <!-- Reset Password Form -->
+        <div class="tab-pane fade" id="resetTab">
+          <form [formGroup]="resetPasswordForm" (ngSubmit)="onResetPassword()">
+            <div class="mb-3">
+              <label>Enter your registered email</label>
+              <input type="email" class="form-control" formControlName="email" autocomplete="off" required />
+              <div *ngIf="resetPasswordForm.controls['email'].invalid && resetPasswordForm.controls['email'].touched"
+                class="text-danger">
+                <small>Email is required.</small>
+              </div>
             </div>
+            <button class="btn btn-warning w-100" [disabled]="resetPasswordForm.invalid">
+              Send Reset Link
+            </button>
+          </form>
+          <div class="text-center mt-2">
+            <a href="#" (click)="backToLogin($event)">Back to Login</a>
           </div>
-          <button class="btn btn-warning w-100" [disabled]="resetPasswordForm.invalid">
-            Send Reset Link
-          </button>
-        </form>
-        <div class="text-center mt-2">
-          <a href="#" (click)="backToLogin($event)">Back to Login</a>
         </div>
       </div>
     </div>
   </div>
+
 </div>
