@@ -1,13 +1,20 @@
 <div class="turf-booking-container">
   <h2>Mumbai Turf Booking Slots</h2>
 
-  <div *ngFor="let turf of turfSlots" class="turf-section">
-    <h3>{{ turf.name }} - {{ turf.location }}</h3>
+  <div *ngFor="let turf of turfs" class="turf-section">
+    <div class="turf-header">
+      <img [src]="turf.image" alt="{{ turf.name }}" class="turf-image" />
+      <div>
+        <h3>{{ turf.name }}</h3>
+        <p>{{ turf.location }}</p>
+      </div>
+    </div>
 
-    <div class="slot-grid">
-      <div *ngFor="let slot of turf.slots" class="slot" [class.available]="slot.available"
-        [class.booked]="!slot.available" (click)="toggleSlot(slot)">
-        {{ slot.time }}
+    <div class="slots-grid">
+      <div *ngFor="let slot of timeSlots" class="slot" [class.available]="!isBooked(turf.name, slot)"
+        [class.booked]="isBooked(turf.name, slot)" (click)="toggleSlot(turf.name, slot)"
+        [attr.title]="isBooked(turf.name, slot) ? 'Booked' : 'Available'">
+        {{ slot }}
       </div>
     </div>
   </div>

@@ -9,32 +9,21 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dash-content.component.scss',
 })
 export class DashContentComponent {
-  turfSlots = [
-    {
-      name: 'Andheri Sports Turf',
-      location: 'Andheri, Mumbai',
-      slots: this.generateTimeSlots(),
-    },
-    {
-      name: 'Bandra Football Arena',
-      location: 'Bandra, Mumbai',
-      slots: this.generateTimeSlots(),
-    },
-    {
-      name: 'Worli Kick-Off Turf',
-      location: 'Worli, Mumbai',
-      slots: this.generateTimeSlots(),
-    },
+  turfs = [
+    { name: 'Andheri Sports Turf', location: 'Andheri, Mumbai', image: 'assets/turf1.jpg' },
+    { name: 'Bandra Football Arena', location: 'Bandra, Mumbai', image: 'assets/turf2.jpg' },
+    { name: 'Worli Kick-Off Turf', location: 'Worli, Mumbai', image: 'assets/turf3.jpg' },
+    { name: 'Dadar Elite Turf', location: 'Dadar, Mumbai', image: 'assets/turf4.jpg' },
+    { name: 'Juhu Premium Turf', location: 'Juhu, Mumbai', image: 'assets/turf5.jpg' },
   ];
+
+  timeSlots = this.generateTimeSlots();
+  bookings: { [key: string]: boolean } = {};
 
   generateTimeSlots() {
     const slots = [];
-    let startTime = 6; // Start from 6:00 AM
-    let endTime = 23; // End at 11:00 PM
-
-    for (let i = startTime; i < endTime; i++) {
-      let slotTime = `${this.formatTime(i)} - ${this.formatTime(i + 1)}`;
-      slots.push({ time: slotTime, available: Math.random() < 0.7 });
+    for (let hour = 6; hour < 23; hour++) {
+      slots.push(`${this.formatTime(hour)} - ${this.formatTime(hour + 1)}`);
     }
     return slots;
   }
@@ -45,7 +34,12 @@ export class DashContentComponent {
     return `${formattedHour}:00 ${period}`;
   }
 
-  toggleSlot(slot: any) {
-    slot.available = !slot.available;
+  toggleSlot(turfName: string, timeSlot: string) {
+    const key = `${turfName}-${timeSlot}`;
+    this.bookings[key] = !this.bookings[key];
+  }
+
+  isBooked(turfName: string, timeSlot: string): boolean {
+    return this.bookings[`${turfName}-${timeSlot}`] || false;
   }
 }
