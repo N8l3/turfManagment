@@ -1,0 +1,14 @@
+<div class="turf-booking-container">
+  <h2>Mumbai Turf Booking Slots</h2>
+
+  <div *ngFor="let turf of turfSlots" class="turf-section">
+    <h3>{{ turf.name }} - {{ turf.location }}</h3>
+
+    <div class="slot-grid">
+      <div *ngFor="let slot of turf.slots" class="slot" [class.available]="slot.available"
+        [class.booked]="!slot.available" (click)="toggleSlot(slot)">
+        {{ slot.time }}
+      </div>
+    </div>
+  </div>
+</div>

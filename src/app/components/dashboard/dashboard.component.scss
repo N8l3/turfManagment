@@ -1,0 +1,26 @@
+.main-container {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar {
+    width: 260px;
+    background: #111827;
+    padding: 20px;
+    height: 100vh;
+    transition: width 0.3s;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    background: #f4f4f4;
+    overflow-y: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+    }
+}

@@ -1,6 +1,15 @@
-<ng-container *ngIf="_AllowAdmin">
-    <app-admin></app-admin>
-</ng-container>
-<ng-container *ngIf="!_AllowAdmin">
-    <app-user></app-user>
-</ng-container>
+<section class="main-container">
+  <aside class="sidebar">
+    <app-nav-bar></app-nav-bar> <!-- Sidebar always stays visible -->
+  </aside>
+  <main class="content">
+    <ng-container *ngIf="currentPath == '/dashboard'  else nodashpath">
+      <app-dash-content></app-dash-content>
+    </ng-container>
+    <ng-template #nodashpath>
+      <router-outlet></router-outlet> <!-- Loads child routes here -->
+    </ng-template>
+  </main>
+
+
+</section>

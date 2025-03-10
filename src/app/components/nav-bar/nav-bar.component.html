@@ -1,0 +1,36 @@
+<div class="sidebar" [class.collapsed]="isCollapsed">
+  <!-- Top Section -->
+  <div class="top-section">
+    <div class="logo">
+      <span *ngIf="!isCollapsed">Logo</span>
+    </div>
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+
+  <!-- Search Box -->
+  <!-- <div class="search-box" *ngIf="!isCollapsed">
+    <input type="text" placeholder="Search..." />
+    <i class="fas fa-search"></i>
+  </div> -->
+
+  <!-- Navigation Links -->
+  <ul class="nav-links">
+    <li *ngFor="let item of menuItems">
+      <a [routerLink]="item.name" routerLinkActive="router-link-active" class="text-capitalize">
+        <i [class]="item.icon"></i>
+        <span *ngIf="!isCollapsed">{{ item.name }}</span>
+      </a>
+    </li>
+  </ul>
+
+  <!-- Profile Section -->
+  <div class="profile-section">
+    <img src="https://via.placeholder.com/40" alt="Profile" />
+    <div class="profile-info" *ngIf="!isCollapsed">
+      <h4 class="h5 text-secondary">User Name</h4>
+    </div>
+    <i class="fas fa-sign-out-alt logout-icon"></i>
+  </div>
+</div>
