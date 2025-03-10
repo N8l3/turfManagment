@@ -1,21 +1,29 @@
-<div class="turf-booking-container">
-  <h2>Mumbai Turf Booking Slots</h2>
+<div class="turf-container">
+  <h2>🏟️ Mumbai Turf Booking</h2>
 
-  <div *ngFor="let turf of turfs" class="turf-section">
-    <div class="turf-header">
+  <div class="grid-container">
+    <div *ngFor="let turf of turfs" class="turf-card">
       <img [src]="turf.image" alt="{{ turf.name }}" class="turf-image" />
-      <div>
-        <h3>{{ turf.name }}</h3>
-        <p>{{ turf.location }}</p>
+      <h3>{{ turf.name }}</h3>
+      <p class="location">📍 {{ turf.location }}</p>
+
+      <div class="slots-grid">
+        <div *ngFor="let slot of timeSlots" class="slot" [class.available]="!bookings[`${turf.name}-${slot}`]?.booked"
+          [class.booked]="bookings[`${turf.name}-${slot}`]?.booked" (click)="toggleSlot(turf.name, slot)"
+          [attr.title]="bookings[`${turf.name}-${slot}`]?.booked ? `Booked by ${bookings[`${turf.name}-${slot}`]?.user}` : 'Available'">
+          {{ slot }}
+        </div>
       </div>
     </div>
+  </div>
 
-    <div class="slots-grid">
-      <div *ngFor="let slot of timeSlots" class="slot" [class.available]="!isBooked(turf.name, slot)"
-        [class.booked]="isBooked(turf.name, slot)" (click)="toggleSlot(turf.name, slot)"
-        [attr.title]="isBooked(turf.name, slot) ? 'Booked' : 'Available'">
-        {{ slot }}
-      </div>
+  <div *ngIf="selectedSlot" class="modal">
+    <div class="modal-content">
+      <h3>Confirm Booking</h3>
+      <p>Are you sure you want to book <strong>{{ selectedSlot.time }}</strong> at
+        <strong>{{ selectedSlot.turf }}</strong>?</p>
+      <button (click)="confirmBooking()" class="confirm-btn">Confirm</button>
+      <button (click)="selectedSlot = null" class="cancel-btn">Cancel</button>
     </div>
   </div>
 </div>
