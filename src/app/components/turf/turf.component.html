@@ -1,1 +1,68 @@
-<p>turf works!</p>
+<div class="turf-container">
+  <h2>Turf Booking</h2>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Date</th>
+          <th>Available Slots</th>
+          <th class="text-nowarp">Open - Close</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let turf of turfs">
+          <td>{{ turf.id }}</td>
+          <td>{{ turf.name }}</td>
+          <td>{{ turf.location }}</td>
+          <td>
+            <select [(ngModel)]="selectedDate[turf.id]">
+              <option *ngFor="let date of turf.dates" [ngValue]="date.date">
+                {{ date.date | date: 'fullDate' }}
+              </option>
+            </select>
+          </td>
+          <td>
+            <div class="slots-container">
+              <span *ngFor="let slot of getSelectedSlots(turf)" class="slot-chip"
+                [ngClass]="{ 'slot-available': !slot.booked, 'slot-booked': slot.booked, 'selected-slot': selectedSlots.includes(slot) }"
+                (click)="toggleSlotSelection(slot)">
+                {{ slot.time }}
+              </span>
+            </div>
+          </td>
+          <td class="text-nowarp">{{ turf.openTime }} - {{ turf.closeTime }}</td>
+          <td>
+            <button class="btn btn-secondary text-nowarp p-2" (click)="openBookingPopup(turf)">Book Selected
+              Slots</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Backdrop -->
+<div class="popup-backdrop" *ngIf="showPopup"></div>
+
+<!-- Popup Modal -->
+<div class="popup" *ngIf="showPopup">
+  <div class="popup-content">
+    <h3>Confirm Booking</h3>
+
+    <label for="userName">Name:</label>
+    <input type="text" id="userName" [(ngModel)]="userName" placeholder="Enter Name" required />
+
+    <label for="userMobile">Mobile:</label>
+    <input type="text" id="userMobile" [(ngModel)]="userMobile" placeholder="Enter Mobile" required />
+
+    <div class="popup-buttons">
+      <button class="btn btn-success" (click)="confirmBooking()">Confirm</button>
+      <button class="btn btn-secondary" (click)="closePopup()">Cancel</button>
+    </div>
+  </div>
+</div>

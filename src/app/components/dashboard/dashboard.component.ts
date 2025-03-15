@@ -7,7 +7,7 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
-import { DashContentComponent } from "./dash-content/dash-content.component";
+import { DashContentComponent } from './dash-content/dash-content.component';
 
 @Component({
   selector: 'app-dashboard',

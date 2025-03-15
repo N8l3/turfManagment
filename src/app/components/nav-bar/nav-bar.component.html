@@ -4,7 +4,7 @@
     <div class="logo">
       <span *ngIf="!isCollapsed">Logo</span>
     </div>
-    <button class="toggle-btn" (click)="toggleSidebar()">
+    <button class="toggle-btn" *ngIf="isCollapsed" (click)="toggleSidebar()">
       <i class="fas fa-bars"></i>
     </button>
   </div>
@@ -31,6 +31,6 @@
     <div class="profile-info" *ngIf="!isCollapsed">
       <h4 class="h5 text-secondary">User Name</h4>
     </div>
-    <i class="fas fa-sign-out-alt logout-icon"></i>
+    <i class="fas fa-sign-out-alt logout-icon" (click)="logout()"></i>
   </div>
 </div>

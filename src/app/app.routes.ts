@@ -1,9 +1,11 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { TurfComponent } from './components/turf/turf.component';
+import { UserComponent } from './components/user/user.component';
+import { BookingComponent } from './components/booking/booking.component';
 import { authGuard } from './guard/auth.guard';
 import { noAuthGuard } from './guard/noAuth.guard';
-import { TurfComponent } from './components/turf/turf.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,16 +19,13 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [authGuard],
+    canActivate: [authGuard], // ✅ Dashboard is protected
     children: [
-      // { path: '', redirectTo: 'turf', pathMatch: 'full' }, // Default child
-      {
-        path: 'turf',
-        component: TurfComponent,
-        canActivate: [authGuard],
-      },
+      { path: 'turf', component: TurfComponent },
+      { path: 'users', component: UserComponent },
+      { path: 'booking', component: BookingComponent },
     ],
   },
 
-  { path: '**', redirectTo: 'login' }, // Handle unknown routes
+  { path: '**', redirectTo: 'dashboard' }, // ✅ Redirect unknown routes to dashboard
 ];
