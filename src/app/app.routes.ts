@@ -21,9 +21,11 @@ export const routes: Routes = [
     component: DashboardComponent,
     canActivate: [authGuard], // ✅ Dashboard is protected
     children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
       { path: 'turf', component: TurfComponent },
       { path: 'users', component: UserComponent },
       { path: 'booking', component: BookingComponent },
+      { path: '**', redirectTo: 'dashboard' },
     ],
   },
 
