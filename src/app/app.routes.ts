@@ -6,6 +6,7 @@ import { UserComponent } from './components/user/user.component';
 import { BookingComponent } from './components/booking/booking.component';
 import { authGuard } from './guard/auth.guard';
 import { noAuthGuard } from './guard/noAuth.guard';
+import { TurfdetailsComponent } from './components/turfdetails/turfdetails.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -21,13 +22,14 @@ export const routes: Routes = [
     component: DashboardComponent,
     canActivate: [authGuard], // ✅ Dashboard is protected
     children: [
-      { path: '', redirectTo: 'dashboard', pathMatch: 'prefix' },
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'turf', component: TurfComponent },
       { path: 'users', component: UserComponent },
       { path: 'booking', component: BookingComponent },
-      { path: '**', redirectTo: 'dashboard' },
+      { path: 'turfDetails/:id', component: TurfdetailsComponent},
     ],
   },
+
 
   { path: '**', redirectTo: 'dashboard' }, // ✅ Redirect unknown routes to dashboard
 ];

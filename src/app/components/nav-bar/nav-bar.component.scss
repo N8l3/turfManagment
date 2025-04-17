@@ -1,12 +1,13 @@
 /* Ensure the sidebar has enough space for the hover effect */
 .sidebar {
     height: 100vh;
-    width: 260px;
+    width: 240px;
     background: #111827;
     position: fixed;
     top: 0;
     left: 0;
     padding: 20px;
+    padding-left: 10px;
     transition: width 0.3s ease-in-out;
     box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.2);
     display: flex;

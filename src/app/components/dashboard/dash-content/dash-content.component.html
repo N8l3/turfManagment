@@ -3,27 +3,12 @@
 
   <div class="grid-container">
     <div *ngFor="let turf of turfs" class="turf-card">
-      <img [src]="turf.image" alt="{{ turf.name }}" class="turf-image" />
+      <div class="image-container">
+        <img [src]="turf.image" alt="{{ turf.name }}" class="turf-image" />
+      </div>
       <h3>{{ turf.name }}</h3>
       <p class="location">📍 {{ turf.location }}</p>
-
-      <div class="slots-grid">
-        <div *ngFor="let slot of timeSlots" class="slot" [class.available]="!bookings[`${turf.name}-${slot}`]?.booked"
-          [class.booked]="bookings[`${turf.name}-${slot}`]?.booked" (click)="toggleSlot(turf.name, slot)"
-          [attr.title]="bookings[`${turf.name}-${slot}`]?.booked ? `Booked by ${bookings[`${turf.name}-${slot}`]?.user}` : 'Available'">
-          {{ slot }}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="selectedSlot" class="modal">
-    <div class="modal-content">
-      <h3>Confirm Booking</h3>
-      <p>Are you sure you want to book <strong>{{ selectedSlot.time }}</strong> at
-        <strong>{{ selectedSlot.turf }}</strong>?</p>
-      <button (click)="confirmBooking()" class="confirm-btn">Confirm</button>
-      <button (click)="selectedSlot = null" class="cancel-btn">Cancel</button>
+      <button class="view-details" (click)="goToTurfDetails(turf)">View Details</button>
     </div>
   </div>
 </div>

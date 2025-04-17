@@ -1,0 +1,183 @@
+<!-- Add error handling for when turfData is not available -->
+<div class="turf-details-container" *ngIf="turfData; else noTurfData">
+  <button class="back-button" (click)="goBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  
+  <div class="turf-header">
+    <h2>{{ turfData.name }}</h2>
+    <p class="location">📍 {{ turfData.location }}</p>
+  </div>
+
+  <div class="turf-image">
+    <img [src]="turfData.image" [alt]="turfData.name">
+  </div>
+
+  <div class="turf-info">
+    <div class="rating">
+      <span>Rating: ⭐ {{ turfData.rating }}/5</span>
+    </div>
+    <div class="price">
+      <span>Price: ₹{{ turfData.price }}/hour</span>
+    </div>
+  </div>
+
+  <div class="turf-description">
+    <h3>About this Turf</h3>
+    <p>Experience premium sports facilities at {{ turfData.name }}. Our well-maintained turf offers the perfect setting for your football matches and practice sessions.</p>
+    
+    <div class="amenities">
+      <h4>Amenities</h4>
+      <ul>
+        <li><mat-icon>local_parking</mat-icon> Parking Available</li>
+        <li><mat-icon>water_drop</mat-icon> Water Supply</li>
+        <li><mat-icon>bathroom</mat-icon> Changing Rooms</li>
+        <li><mat-icon>night_shelter</mat-icon> Flood Lights</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="booking-section">
+    <h3>Available Slots</h3>
+    <div class="date-selector">
+      <mat-form-field>
+        <mat-label>Select Date</mat-label>
+        <input matInput [matDatepicker]="picker" 
+               [min]="minDate" 
+               [(ngModel)]="selectedDate"
+               (ngModelChange)="updateBookedSlots()">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <!-- Add custom slot selector -->
+    <div class="custom-slot-selector">
+      <div class="time-select">
+        <mat-form-field>
+          <mat-label>Start Hour</mat-label>
+          <mat-select [(ngModel)]="customStartHour">
+            <mat-option *ngFor="let hour of availableHours" [value]="hour.value">
+              {{hour.label}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Minutes</mat-label>
+          <mat-select [(ngModel)]="customStartMinute">
+            <mat-option *ngFor="let min of availableMinutes" [value]="min">
+              :{{min}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    
+      <div class="time-select">
+        <mat-form-field>
+          <mat-label>End Hour</mat-label>
+          <mat-select [(ngModel)]="customEndHour">
+            <mat-option *ngFor="let hour of availableHours" [value]="hour.value">
+              {{hour.label}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label>Minutes</mat-label>
+          <mat-select [(ngModel)]="customEndMinute">
+            <mat-option *ngFor="let min of availableMinutes" [value]="min">
+              :{{min}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    
+      <button mat-stroked-button color="primary" (click)="addCustomSlot()" [disabled]="!isValidCustomSlot()">
+        Add Custom Slot
+      </button>
+    </div>
+
+    <!-- Existing time slots grid -->
+    <div class="time-slots">
+      <div class="slot-grid">
+        <button mat-stroked-button 
+                *ngFor="let slot of timeSlots" 
+                [class.booked]="isSlotBooked(slot)"
+                [class.selected]="isSlotSelected(slot)"
+                [class.morning-slot]="isMorningSlot(slot)"
+                [class.afternoon-slot]="isAfternoonSlot(slot)"
+                [class.evening-slot]="isEveningSlot(slot)"
+                [class.night-slot]="isNightSlot(slot)"
+                (click)="selectSlot(slot)"
+                [disabled]="isSlotBooked(slot)">
+          {{ slot }}
+        </button>
+      </div>
+    </div>
+
+    <div class="booking-action" *ngIf="selectedSlots.length > 0">
+      <p>Selected Time: {{ getSelectedTimeRange() }}</p>
+      <button mat-raised-button color="primary" (click)="openBookingModal()">Book Now</button>
+    </div>
+  </div>
+
+  <!-- Booking Modal -->
+  <div class="modal" *ngIf="showBookingModal">
+    <div class="modal-content">
+      <h3>Complete Your Booking</h3>
+      <p>Selected Time: {{ getSelectedTimeRange() }}</p>
+      <div class="price-breakdown">
+        <div class="subtotal">
+          <span>Subtotal:</span>
+          <span>₹{{ calculateTotalAmount() }}</span>
+        </div>
+        <div class="discount">
+          <span>Discount <span class="discount-tag">20% OFF</span></span>
+          <span>-₹{{ calculateDiscount() }}</span>
+        </div>
+        <div class="total">
+          <span>Total Amount:</span>
+          <span>₹{{ calculateFinalAmount() }}</span>
+        </div>
+      </div>
+      
+      <form #bookingForm="ngForm" (ngSubmit)="confirmBooking()">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput [(ngModel)]="bookingDetails.name" name="name" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Mobile Number</mat-label>
+          <input matInput [(ngModel)]="bookingDetails.mobile" name="mobile" required pattern="[6-9][0-9]{9}">
+          <mat-hint>Enter 10-digit mobile number</mat-hint>
+          <mat-error *ngIf="bookingForm.form.get('mobile')?.errors?.['pattern']">
+            Please enter a valid mobile number
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="bookingDetails.email" name="email" email>
+          <mat-hint>Optional</mat-hint>
+        </mat-form-field>
+
+        <div class="modal-actions">
+          <button mat-button (click)="closeBookingModal()">Cancel</button>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!bookingForm.valid">
+            Confirm Booking
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<ng-template #noTurfData>
+  <div class="no-data-message">
+    <mat-icon>error_outline</mat-icon>
+    <p>Turf details not available</p>
+    <button mat-button (click)="goBack()">Go Back</button>
+  </div>
+</ng-template>

@@ -1,0 +1,117 @@
+.booking-history {
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  h2 {
+    color: #333;
+    margin-bottom: 24px;
+  }
+}
+
+.booking-table {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+  .mat-header-cell {
+    background: #f5f5f5;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .mat-cell {
+    padding: 16px;
+  }
+}
+
+.turf-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  small {
+    color: #666;
+  }
+}
+
+.amount-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-end;
+
+  .subtotal {
+    color: #666;
+    text-decoration: line-through;
+    font-size: 0.9em;
+  }
+
+  .discount {
+    color: #4CAF50;
+    font-size: 0.9em;
+  }
+
+  .final {
+    color: #1976D2;
+  }
+}
+
+.status-chip {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.9em;
+  font-weight: 500;
+  text-transform: capitalize;
+
+  &.confirmed {
+    background: #E3F2FD;
+    color: #1976D2;
+  }
+
+  &.cancelled {
+    background: #FFEBEE;
+    color: #D32F2F;
+  }
+
+  &.completed {
+    background: #E8F5E9;
+    color: #388E3C;
+  }
+}
+
+.no-bookings {
+  text-align: center;
+  padding: 48px;
+  background: white;
+  border-radius: 8px;
+  margin-top: 24px;
+
+  mat-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    color: #999;
+    margin-bottom: 16px;
+  }
+
+  p {
+    color: #666;
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 768px) {
+  .booking-table {
+    .mat-cell {
+      padding: 12px 8px;
+      font-size: 0.9em;
+    }
+  }
+
+  .turf-info small {
+    font-size: 0.8em;
+  }
+}
