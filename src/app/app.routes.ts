@@ -24,8 +24,8 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
       { path: 'turf', component: TurfComponent },
-      { path: 'users', component: UserComponent },
-      { path: 'booking', component: BookingComponent },
+      { path: 'bookingdetails', component: UserComponent },
+      { path: 'bookinghistory', component: BookingComponent },
       { path: 'turfDetails/:id', component: TurfdetailsComponent},
     ],
   },

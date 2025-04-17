@@ -13,13 +13,13 @@ export class NavBarComponent {
   isCollapsed = false;
 
   menuItems = [
-    { name: 'dashboard', path: 'dashboard', icon: 'fas fa-home' },
-    { name: 'turf', path: 'turf', icon: 'fas fa-futbol' },
-    { name: 'users', icon: 'fas fa-user' },
+    { name: 'Dashboard', path: 'dashboard', icon: 'fas fa-home' },
+    // { name: 'turf', path: 'turf', icon: 'fas fa-futbol' },
+    { name: 'Booking Details',path:"bookingdetails" ,icon: 'fas fa-user' },
     // { name: '', icon: 'fas fa-envelope' },
     // { name: 'Feedback', icon: 'fas fa-envelope' },
 
-    { name: 'booking', icon: 'fas fa-shopping-cart' },
+    { name: 'Booking History',path:"bookinghistory", icon: 'fas fa-shopping-cart' },
     // { name: 'Saved', icon: 'fas fa-heart' },
     // { name: 'Settings', icon: 'fas fa-cog' },
   ];

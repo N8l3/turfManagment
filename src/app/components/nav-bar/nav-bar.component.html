@@ -18,7 +18,7 @@
   <!-- Navigation Links -->
   <ul class="nav-links">
     <li *ngFor="let item of menuItems">
-      <a [routerLink]="item.name" routerLinkActive="router-link-active" class="text-capitalize">
+      <a [routerLink]="item.path" routerLinkActive="router-link-active" class="text-capitalize">
         <i [class]="item.icon"></i>
         <span *ngIf="!isCollapsed">{{ item.name }}</span>
       </a>

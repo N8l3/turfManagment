@@ -1,7 +1,7 @@
 <div class="user-bookings">
   <h2>User Booking Details</h2>
 
-  <mat-table [dataSource]="userBookings" class="booking-table">
+  <mat-table [dataSource]="userBookings" class="booking-table mat-elevation-z8">
     <!-- Booking ID Column -->
     <ng-container matColumnDef="bookingId">
       <mat-header-cell *matHeaderCellDef> Booking ID </mat-header-cell>
@@ -66,7 +66,7 @@
       </mat-cell>
     </ng-container>
 
-    <!-- Add actions column in mat-table -->
+    <!-- Actions Column -->
     <ng-container matColumnDef="actions">
       <mat-header-cell *matHeaderCellDef> Actions </mat-header-cell>
       <mat-cell *matCellDef="let booking">
@@ -78,6 +78,20 @@
         <span *ngIf="booking.status === 'cancelled'" class="cancelled-tag">
           Cancelled
         </span>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Cancellation Details Column -->
+    <ng-container matColumnDef="cancellationDetails">
+      <mat-header-cell *matHeaderCellDef> Cancellation Details </mat-header-cell>
+      <mat-cell *matCellDef="let booking">
+        <div *ngIf="booking.status === 'cancelled'" class="cancellation-info">
+          <p><strong>Reason:</strong> {{booking.cancellation?.reason}}</p>
+          <p><strong>Charge:</strong> ₹{{booking.cancellation?.charge}}</p>
+        </div>
+        <div *ngIf="booking.status !== 'cancelled'">
+          <span>N/A</span>
+        </div>
       </mat-cell>
     </ng-container>
 

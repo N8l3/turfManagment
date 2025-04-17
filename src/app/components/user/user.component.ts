@@ -20,7 +20,16 @@ import { MatTableModule } from '@angular/material/table';
 })
 export class UserComponent implements OnInit {
   userBookings: Booking[] = [];
-  displayedColumns: string[] = ['bookingId', 'date', 'turf', 'timeSlots', 'userDetails', 'amount', 'actions'];
+  displayedColumns: string[] = [
+    'bookingId', 
+    'date', 
+    'turf', 
+    'timeSlots', 
+    'userDetails', 
+    'amount', 
+    'cancellationDetails', // Add this line
+    'actions'
+  ];
   showCancelModal = false;
   selectedBooking: Booking | null = null;
   cancellationReason = '';
