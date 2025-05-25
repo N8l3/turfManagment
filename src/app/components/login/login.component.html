@@ -19,12 +19,14 @@
         <!-- Login Form -->
         <div class="tab-pane fade show active" id="loginTab">
           <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <p class="text-center">
+              <small class="text-danger text-center">Invalid credentials</small>
+            </p>
             <div class="mb-3">
-              <label>Email</label>
+              <label>User ID</label>
               <input type="email" class="form-control" formControlName="email" required autocomplete="off" />
               <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="text-danger">
-                <small *ngIf="loginForm.controls['email'].errors?.['required']">Email is required.</small>
-                <small *ngIf="loginForm.controls['email'].errors?.['email']">Invalid email format.</small>
+                <small *ngIf="loginForm.controls['email'].errors?.['required']">User ID is required.</small>
               </div>
             </div>
             <div class="mb-3">

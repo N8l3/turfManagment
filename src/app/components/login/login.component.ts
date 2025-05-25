@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import * as bootstrap from 'bootstrap';
 import { MaterialModule } from '../../mat-module/mat-module.module';
 import { Router } from '@angular/router';
+import { RestService } from '../../services/rest.service';
 
 @Component({
   selector: 'app-login',
@@ -22,18 +23,23 @@ export class LoginComponent implements AfterViewInit {
   loginForm: FormGroup;
   signupForm: FormGroup;
   resetPasswordForm: FormGroup;
+  invalidCredentials: boolean;
 
-  constructor(private fb: FormBuilder, private _router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private _router: Router,
+    private restService: RestService
+  ) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       password: ['', Validators.required],
     });
 
     this.signupForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]], // Only letters and spaces
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       password: ['', Validators.required],
-      mobile: ['', Validators.required, Validators.pattern(/^[6-9]\d{9}$/)], // Indian 10-digit number starting with 6-9],
+      mobile: ['', [Validators.required, Validators.pattern(/^[6-9]\d{9}$/)]], // Indian 10-digit number starting with 6-9
     });
 
     this.resetPasswordForm = this.fb.group({
@@ -74,19 +80,43 @@ export class LoginComponent implements AfterViewInit {
 
   onLogin() {
     if (this.loginForm.valid) {
-      let user = {
-        email: this.loginForm.controls['email'].value,
-        pass: this.loginForm.controls['password'].value,
-      };
-      localStorage.setItem('user', user.email);
-      sessionStorage.setItem('userRoleID','1');
-      this._router.navigate(['/dashboard']);
+      const { email, password } = this.loginForm.value;
+      this.restService.login(email, password).subscribe({
+        next: (response) => {
+          localStorage.setItem('user', JSON.stringify(response));
+         if(response?.isValidUser){
+          this.invalidCredentials = false;
+           this._router.navigate(['/dashboard']);
+         }
+          else{
+            this.invalidCredentials = true;
+            localStorage.clear();
+            sessionStorage.clear();
+          }
+        },
+        error: (error) => {
+          console.error('Login failed:', error);
+          // Handle login error (show message to user)
+        }
+      });
     }
   }
 
   onSignup() {
     if (this.signupForm.valid) {
-      console.log('Signup Data:', this.signupForm.value);
+      const userData = this.signupForm.value;
+      this.restService.verifyUser(userData.email, userData.password).subscribe({
+        next: (response) => {
+          if (response.success) {
+            // Handle successful signup
+            this.backToLogin(new Event('click'));
+          }
+        },
+        error: (error) => {
+          console.error('Signup failed:', error);
+          // Handle signup error (show message to user)
+        }
+      });
     }
   }
 
